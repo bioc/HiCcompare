@@ -1,4 +1,4 @@
-Changes in version 1.23.1 (2023-06-03)
+Changes in version 1.22.1 (2023-06-03)
 + Fix cooler2sparse function when a cool file has only a single chromosome. 
 Thanks to @junjunlab, @agata-sm, https://github.com/dozmorovlab/HiCcompare/issues/28
 + Update cool file handling in the vignette.
