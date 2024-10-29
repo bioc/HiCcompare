@@ -1,6 +1,6 @@
 Package: HiCcompare
 Title: HiCcompare: Joint normalization and comparative analysis of multiple Hi-C datasets
-Version: 1.27.0
+Version: 1.28.0
 Authors@R: c(
     person(given = "Mikhail",
            family = "Dozmorov",
