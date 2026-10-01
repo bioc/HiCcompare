@@ -81,16 +81,19 @@ create.hic.table <- function(sparse.mat1, sparse.mat2, chr = NA, scale = TRUE,
                              include.zeros = FALSE, subset.dist = NA, subset.index = NA,
                              exclude.regions = NA, exclude.overlap = 0.2) {
   interactionset_to_sparse <- function(interaction.set, arg.name) {
-    interaction.table <- data.table::as.data.table(interaction.set)
-    required.cols <- c("seqnames1", "start1", "start2", "IF")
-    missing.cols <- setdiff(required.cols, colnames(interaction.table))
-    if (length(missing.cols) > 0) {
-      stop(arg.name, " must contain columns ",
-           paste(required.cols, collapse = ", "))
+    interaction.metadata <- S4Vectors::mcols(interaction.set)
+    if (!"IF" %in% colnames(interaction.metadata)) {
+      stop(arg.name, " must contain an IF metadata column")
     }
+    first.anchors <- InteractionSet::anchors(interaction.set, type = "first")
+    second.anchors <- InteractionSet::anchors(interaction.set, type = "second")
     list(
-      chr = as.character(interaction.table$seqnames1[1]),
-      sparse = interaction.table[, .(start1, start2, IF)]
+      chr = as.character(GenomicRanges::seqnames(first.anchors)[1]),
+      sparse = data.table::data.table(
+        start1 = IRanges::start(first.anchors),
+        start2 = IRanges::start(second.anchors),
+        IF = interaction.metadata[["IF"]]
+      )
     )
   }
   if (!is.na(subset.dist) & !is.na(subset.index[1])) {

@@ -1,3 +1,8 @@
+Changes in version 1.35.2 (2026-09-30)
++ Build `GInteractions` input tables from InteractionSet accessors instead of
+  coercing S4 objects through `data.table`, restoring compatibility with
+  Bioconductor 3.24.
+
 Changes in version 1.35.1 (2026-09-16)
 + Fix conversion of `GInteractions` inputs, resolving "no method for coercing
   this S4 class to a vector" errors.
